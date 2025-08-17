@@ -60,6 +60,17 @@ A modern full-stack blogging platform where users can share their thoughts, disc
 - **Nodemailer** for email services
 - **Base64** image encoding for storage
 
+
+### Desktop View (Alternative)
+![Desktop Interface](frontend/public/FirstThought.Home.png)
+
+
+### Mobile View
+![Mobile Interface](frontend/public/FirstThought.Mobile.png)
+
+
+
+
 ## 🚀 Getting Started
 
 ### Prerequisites
