@@ -62,11 +62,12 @@ A modern full-stack blogging platform where users can share their thoughts, disc
 
 
 ### Desktop View (Alternative)
-![Desktop Interface](frontend/public/FirstThought.Home.png)
+![Desktop Interface](./frontend/public/FirstThought.Home.png)
+
 
 
 ### Mobile View
-![Mobile Interface](frontend/public/FirstThought.Mobile.png)
+![Mobile Interface](./frontend/public/FirstThought.Mobile.png)
 
 
 
