@@ -9,7 +9,7 @@ import {
     Email as EmailIcon
 } from "@mui/icons-material";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useSavedPostsQuery } from "../../features/savedPosts/api/getSavedPosts";
+// ...existing code...
 import SavedPostsDropdown from "../../features/savedPosts/components/SavedPostsDropdown";
 import { NewsletterModal } from "../Elements";
 import { useState } from "react";
@@ -20,7 +20,7 @@ const Footer = () => {
     const navigate = useNavigate();
     const [savedPostsAnchorEl, setSavedPostsAnchorEl] = useState<HTMLElement | null>(null);
     const [newsletterModalOpen, setNewsletterModalOpen] = useState(false);
-    const { data: savedPosts } = useSavedPostsQuery();
+// ...existing code...
     
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });

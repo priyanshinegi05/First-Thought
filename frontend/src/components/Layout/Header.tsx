@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import SavedPostsButton from "../../features/savedPosts/components/SavedPostsButton";
 import NotificationButton from "../../features/notifications/components/NotificationButton";
 import { Avatar, IconButton, Tooltip, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemText } from "@mui/material";
-import { Person as PersonIcon, Menu as MenuIcon, Home as HomeIcon, Edit as EditIcon, Create as CreateIcon, Article as ArticleIcon, PostAdd as PostAddIcon, NoteAdd as NoteAddIcon, AddCircle as AddCircleIcon, Assignment as AssignmentIcon, Description as DescriptionIcon, TextFields as TextFieldsIcon, DriveFileRenameOutline as DriveFileRenameOutlineIcon } from "@mui/icons-material";
+import { Person as PersonIcon, Menu as MenuIcon, Home as HomeIcon, DriveFileRenameOutline as DriveFileRenameOutlineIcon } from "@mui/icons-material";
 import { useState } from "react";
 import defaultAvatar from "../../assets/images/default_avatar.webp";
 

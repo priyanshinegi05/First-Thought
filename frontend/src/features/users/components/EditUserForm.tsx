@@ -66,13 +66,6 @@ export const EditUserForm = (props: Props) => {
         return Array.isArray(topics) ? topics : [];
     });
 
-    const handleTopicToggle = (topic: string) => {
-        setSelectedTopics(prev => 
-            prev.includes(topic)
-                ? prev.filter(t => t !== topic)
-                : [...prev, topic]
-        );
-    };
 
     const editProfile = (formData: UserForm) => {
         const { firstName, lastName, ...newFormData } = formData;
@@ -229,7 +222,7 @@ export const EditUserForm = (props: Props) => {
                             freeSolo
                             options={availableTopics}
                             value={selectedTopics}
-                            onChange={(event: any, newValue: string[]) => {
+                            onChange={(_: any, newValue: string[]) => {
                                 setSelectedTopics(newValue);
                             }}
                             renderInput={(params: any) => (

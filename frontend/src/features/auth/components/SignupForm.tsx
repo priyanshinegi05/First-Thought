@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useMediaQuery, Theme } from "@mui/material";
+// ...existing code...
 import { Spinner } from "../../../components/Elements/Spinner";
 import { sendOTP } from "../api/sendOTP";
 import { useState } from "react";
@@ -36,9 +36,6 @@ export const SignupForm = (props: Props) => {
     } = useForm<ISignupForm>({
         resolver: yupResolver<ISignupForm>(signupFormSchema),
     });
-    const isSmallScreen = useMediaQuery((theme: Theme) =>
-        theme.breakpoints.down("sm"),
-    );
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 

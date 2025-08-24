@@ -11,7 +11,7 @@ export const useDeleteCommentMutation = () => {
 
     return useMutation({
         mutationFn: (commentId: string) => deleteComment(commentId),
-        onSuccess: (_, commentId) => {
+    onSuccess: (_) => {
             // Invalidate comments queries to refresh the list
             queryClient.invalidateQueries({ queryKey: ["comments"] });
         },

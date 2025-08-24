@@ -1,15 +1,10 @@
-import React from 'react';
+// ...existing code...
 import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Typography,
     Container,
-    Paper,
     Grid,
-    Card,
-    CardContent,
-    Avatar,
-    Divider,
     Chip,
     Stack,
     useMediaQuery,
@@ -19,9 +14,6 @@ import {
     LightbulbOutlined,
     PsychologyOutlined,
     AutoAwesomeOutlined,
-    EditOutlined,
-    SecurityOutlined,
-    SpeedOutlined,
 } from '@mui/icons-material';
 import { CustomContainer } from '../../../components/Layout/CustomContainer';
 import Header from '../../../components/Layout/Header';

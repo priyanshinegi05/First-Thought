@@ -2,17 +2,16 @@ import Box from "@mui/material/Box";
 import { CustomContainer } from "../../../components/Layout/CustomContainer";
 import PostFeed from "../../posts/components/PostFeed";
 import Header from "../../../components/Layout/Header";
-import { 
-    Typography, 
-    useMediaQuery, 
-    useTheme, 
-    Autocomplete, 
-    TextField, 
+import {
+    Typography,
+    useMediaQuery,
+    useTheme,
+    Autocomplete,
+    TextField,
     Chip,
     Paper,
     InputAdornment,
     IconButton,
-    Slide,
     Collapse,
     Tooltip
 } from "@mui/material";
@@ -96,10 +95,10 @@ const Home = () => {
                                     freeSolo
                                     options={availableTopics}
                                     value={selectedTopics}
-                                    onChange={(event, newValue) => {
+                                    onChange={(_, newValue) => {
                                         setSelectedTopics(newValue);
                                     }}
-                                    onInputChange={(event, newInputValue) => {
+                                    onInputChange={(_, __) => {
                                         // Handle custom input if needed
                                     }}
                                     disableCloseOnSelect
@@ -272,10 +271,10 @@ const Home = () => {
                                     freeSolo
                                     options={availableTopics}
                                     value={selectedTopics}
-                                    onChange={(event, newValue) => {
+                                    onChange={(_, newValue) => {
                                         setSelectedTopics(newValue);
                                     }}
-                                    onInputChange={(event, newInputValue) => {
+                                    onInputChange={(_, __) => {
                                         // Handle custom input if needed
                                     }}
                                     disableCloseOnSelect

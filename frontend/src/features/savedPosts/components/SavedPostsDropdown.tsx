@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Box,
     Typography,
@@ -7,13 +7,10 @@ import {
     List,
     ListItem,
     ListItemText,
-    ListItemAvatar,
     Avatar,
     Chip,
     Divider,
     Button,
-    Paper,
-    Badge,
 } from '@mui/material';
 import {
     BookmarkBorder as BookmarkIcon,
@@ -23,7 +20,6 @@ import {
 } from '@mui/icons-material';
 import { useSavedPostsQuery } from '../api/getSavedPosts';
 import { useUnsavePostMutation } from '../api/unsavePost';
-import { useQueryClient } from '@tanstack/react-query';
 import { formatDate } from '../../../utils/formatDate';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,7 +31,6 @@ interface SavedPostsDropdownProps {
 const SavedPostsDropdown: React.FC<SavedPostsDropdownProps> = ({ anchorEl, onClose }) => {
     const { data: savedPosts, isLoading } = useSavedPostsQuery();
     const unsavePostMutation = useUnsavePostMutation();
-    const queryClient = useQueryClient();
     const navigate = useNavigate();
     const open = Boolean(anchorEl);
 
@@ -44,7 +39,6 @@ const SavedPostsDropdown: React.FC<SavedPostsDropdownProps> = ({ anchorEl, onClo
             await unsavePostMutation.mutateAsync(postId);
             // The mutation will handle query invalidation automatically
         } catch (error) {
-            console.error('Error unsaving post:', error);
         }
     };
 
@@ -104,7 +98,7 @@ const SavedPostsDropdown: React.FC<SavedPostsDropdownProps> = ({ anchorEl, onClo
                     </Box>
                 ) : savedPosts && savedPosts.length > 0 ? (
                     <List sx={{ p: 0 }}>
-                        {savedPosts.map((savedPost, index) => (
+                         {savedPosts.map((savedPost: any, index: number) => (
                             <React.Fragment key={savedPost.id}>
                                 <ListItem
                                     sx={{
@@ -269,3 +263,4 @@ const SavedPostsDropdown: React.FC<SavedPostsDropdownProps> = ({ anchorEl, onClo
 };
 
 export default SavedPostsDropdown; 
+import { ListItemAvatar } from '@mui/material';

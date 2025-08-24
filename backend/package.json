@@ -7,7 +7,8 @@
         "fix-passwords": "npx ts-node fixPasswords.ts",
         "check-users": "npx ts-node checkUserData.ts",
         "delete-user": "npx ts-node deleteUser.ts",
-        "reset-db": "npx ts-node resetDatabase.ts"
+        "reset-db": "npx ts-node resetDatabase.ts",
+        "build": "tsc"
     },
     "dependencies": {
         "@ngneat/falso": "^7.0.1",

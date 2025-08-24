@@ -4,7 +4,7 @@ import PostPreview from "./PostPreview";
 import Grid from "@mui/material/Grid";
 import { Fragment } from "react";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+// ...existing code...
 import { useMediaQuery, useTheme } from "@mui/material";
 
 interface PostFeedProps {

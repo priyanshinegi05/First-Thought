@@ -1,7 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
-    Box,
     Typography,
     Button,
     Alert,
@@ -11,13 +11,12 @@ import {
 } from "@mui/material";
 import { api } from "../../../app/api";
 
-const Unsubscribe = () => {
+export default function Unsubscribe() {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    
     const email = searchParams.get('email');
 
     useEffect(() => {
@@ -30,7 +29,6 @@ const Unsubscribe = () => {
 
             try {
                 const response = await api.post('/newsletter/unsubscribe', { email });
-                
                 if (response.data.success) {
                     setIsSuccess(true);
                 } else {
@@ -43,7 +41,6 @@ const Unsubscribe = () => {
                 setIsLoading(false);
             }
         };
-
         unsubscribe();
     }, [email]);
 
@@ -119,6 +116,4 @@ const Unsubscribe = () => {
             </Paper>
         </Container>
     );
-};
-
-export default Unsubscribe; 
+}

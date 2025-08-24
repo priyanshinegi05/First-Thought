@@ -40,7 +40,7 @@ export const useLikePostMutation = () => {
                         const postsWithLike = postsCopy.pages.map(
                             (post: IPost) => {
                                 if (post.id === like.postId) {
-                                    post.likesNumber += 1;
+                                    post.likesNumber = (post.likesNumber ?? 0) + 1;
                                 }
                                 return post;
                             },
@@ -56,7 +56,7 @@ export const useLikePostMutation = () => {
                         const postsCopy = JSON.parse(JSON.stringify(oldPosts));
                         return postsCopy.map((post: IPost) => {
                             if (post.id === like.postId) {
-                                post.likesNumber += 1;
+                                post.likesNumber = (post.likesNumber ?? 0) + 1;
                             }
                             return post;
                         });

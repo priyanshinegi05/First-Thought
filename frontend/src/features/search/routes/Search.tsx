@@ -6,7 +6,6 @@ import {
     IconButton,
     Typography,
     CircularProgress,
-    Container,
     Paper,
     List,
     ListItem,
@@ -50,7 +49,7 @@ const Search = () => {
                 <Box sx={{ maxWidth: 600, mx: 'auto', mb: 4 }}>
                     <TextField
                         fullWidth
-                        size="large"
+                        size="medium"
                         placeholder="Search for posts by title, content, or keywords..."
                         value={query}
                         onChange={handleSearchChange}

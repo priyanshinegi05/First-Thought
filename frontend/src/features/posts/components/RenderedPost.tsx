@@ -1,4 +1,3 @@
-import ReactMarkdown from "react-markdown";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -9,7 +8,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { Dispatch, SetStateAction, useState } from "react";
-import remarkGfm from "remark-gfm";
 import { useDeletePostMutation } from "../api/deletePost";
 import { useNavigate } from "react-router-dom";
 import { ConfirmationModal, ShareButton } from "../../../components/Elements";

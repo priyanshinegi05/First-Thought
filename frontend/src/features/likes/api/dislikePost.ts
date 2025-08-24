@@ -40,7 +40,7 @@ export const useDislikePostMutation = () => {
                         const postsWithDislike = postsCopy.pages.map(
                             (post: IPost) => {
                                 if (post.id === dislike.postId) {
-                                    post.likesNumber -= 1;
+                                    post.likesNumber = (post.likesNumber ?? 0) - 1;
                                 }
                                 return post;
                             },
@@ -56,7 +56,7 @@ export const useDislikePostMutation = () => {
                         const postsCopy = JSON.parse(JSON.stringify(oldPosts));
                         return postsCopy.map((post: IPost) => {
                             if (post.id === dislike.postId) {
-                                post.likesNumber += 1;
+                                post.likesNumber = (post.likesNumber ?? 0) + 1;
                             }
                             return post;
                         });

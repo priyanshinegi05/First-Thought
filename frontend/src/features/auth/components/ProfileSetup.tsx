@@ -37,13 +37,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ user, onSetupComplete }) =>
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const handleTopicToggle = (topic: string) => {
-        setSelectedTopics(prev => 
-            prev.includes(topic)
-                ? prev.filter(t => t !== topic)
-                : [...prev, topic]
-        );
-    };
+    // ...existing code...
 
     const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -186,7 +180,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ user, onSetupComplete }) =>
                     freeSolo
                     options={availableTopics}
                     value={selectedTopics}
-                    onChange={(event: any, newValue: string[]) => {
+                    onChange={(_, newValue: string[]) => {
                         setSelectedTopics(newValue);
                     }}
                     renderInput={(params: any) => (

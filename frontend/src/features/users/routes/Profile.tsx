@@ -21,7 +21,7 @@ import AuthorPostList from "../../posts/components/AuthorPostList";
 import { UserCommentsList } from "../components/UserCommentsList";
 import { UserLikesList } from "../components/UserLikesList";
 import { UserSavedPostsList } from "../components/UserSavedPostsList";
-import { useMediaQuery, Theme, useTheme, Chip, Alert } from "@mui/material";
+import { useMediaQuery, useTheme, Chip, Alert } from "@mui/material";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import CommentIcon from "@mui/icons-material/Comment";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -108,7 +108,7 @@ const Profile = () => {
         },
     });
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
 

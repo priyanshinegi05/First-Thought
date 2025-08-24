@@ -260,7 +260,7 @@ export const PostForm = (props: IPostFormProps) => {
                     freeSolo
                     options={availableTopics}
                     value={selectedTags}
-                    onChange={(event: any, newValue: string[]) => {
+                    onChange={(_: any, newValue: string[]) => {
                         setSelectedTags(newValue);
                     }}
                     renderInput={(params: any) => (

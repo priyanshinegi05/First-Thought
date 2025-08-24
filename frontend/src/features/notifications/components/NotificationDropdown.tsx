@@ -24,7 +24,7 @@ import {
 import { useNotificationsQuery } from '../api/getNotifications';
 import { useMarkNotificationAsReadMutation } from '../api/markAsRead';
 import { useMarkAllNotificationsAsReadMutation } from '../api/markAllAsRead';
-import { useQueryClient } from '@tanstack/react-query';
+// ...existing code...
 import { formatDate } from '../../../utils/formatDate';
 import { useNavigate } from 'react-router-dom';
 import { INotification } from '../../../types/notification';
@@ -38,7 +38,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ anchorEl, o
     const { data: notifications, isLoading } = useNotificationsQuery();
     const markAsReadMutation = useMarkNotificationAsReadMutation();
     const markAllAsReadMutation = useMarkAllNotificationsAsReadMutation();
-    const queryClient = useQueryClient();
+// ...existing code...
     const navigate = useNavigate();
     const open = Boolean(anchorEl);
 
