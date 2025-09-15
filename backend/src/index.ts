@@ -18,6 +18,7 @@ import otpRoutes from "./routes/otp";
 import profileSetupRoutes from "./routes/profileSetup";
 import newsletterRoutes from "./routes/newsletter";
 import path from "path";
+import fs from "fs";
 import { errorMiddleware } from "./middleware/errorMiddleware";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -60,13 +61,20 @@ app.use("/newsletter", newsletterRoutes);
 
 app.use(errorMiddleware);
 
-// Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
-
-// Catch all handler: send back React's index.html file for any non-API routes
-app.get("*", (req: express.Request, res: express.Response) => {
-    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
-});
+// Serve frontend only if the built files are present (useful locally or when co-deployed)
+const frontendDistPath = path.join(__dirname, "../../frontend/dist");
+const frontendIndexPath = path.join(frontendDistPath, "index.html");
+if (fs.existsSync(frontendIndexPath)) {
+    app.use(express.static(frontendDistPath));
+    app.get("*", (req: express.Request, res: express.Response) => {
+        res.sendFile(frontendIndexPath);
+    });
+} else {
+    // Minimal root handler so platform health checks succeed when frontend isn't bundled
+    app.get("/", (req: express.Request, res: express.Response) => {
+        res.status(200).send("API is running");
+    });
+}
 
 app.listen({ address: "0.0.0.0", port: PORT }, () => {
     console.log(`Server running on port: ${PORT}`);
