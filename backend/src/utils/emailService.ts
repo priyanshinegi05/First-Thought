@@ -3,13 +3,17 @@ import nodemailer from 'nodemailer';
 // OTP storage (in production, use Redis or database)
 const otpStore = new Map<string, { otp: string; expiresAt: number }>();
 
-// Create transporter
+// Create SMTP transporter (Gmail). Note: Some hosts block SMTP; we add timeouts to fail fast.
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER || 'your-email@gmail.com',
-        pass: process.env.EMAIL_PASS || 'your-app-password'
-    }
+        pass: process.env.EMAIL_PASS || 'your-app-password',
+    },
+    pool: false,
+    connectionTimeout: 8000,
+    greetingTimeout: 6000,
+    socketTimeout: 15000,
 });
 
 // Generate OTP
@@ -44,11 +48,13 @@ export const verifyOTP = (email: string, otp: string): boolean => {
 // Send OTP email
 export const sendOTPEmail = async (email: string, otp: string): Promise<boolean> => {
     try {
-        const mailOptions = {
-            from: process.env.EMAIL_USER || 'your-email@gmail.com',
-            to: email,
-            subject: 'Verify Your Email - First Thought',
-            html: `
+        // Prefer Resend HTTPS API if available to avoid SMTP restrictions/timeouts
+        if (process.env.RESEND_API_KEY) {
+            const body = {
+                from: process.env.EMAIL_USER || 'no-reply@firstthought.app',
+                to: email,
+                subject: 'Verify Your Email - First Thought',
+                html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <div style="background: linear-gradient(135deg, #f0f9f4 0%, #e8f5e8 100%); padding: 20px; text-align: center;">
                         <h1 style="color: #1A8917; margin: 0; font-family: 'Dancing Script', cursive;">First Thought</h1>
@@ -70,8 +76,53 @@ export const sendOTPEmail = async (email: string, otp: string): Promise<boolean>
                         </p>
                     </div>
                 </div>
-            `
-        };
+            `,
+            };
+            const resp = await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
+            if (!resp.ok) {
+                const text = await resp.text();
+                console.error('Resend send error:', resp.status, text);
+                return false;
+            }
+            return true;
+        }
+
+        // Fallback to SMTP
+        const mailOptions = {
+            from: process.env.EMAIL_USER || 'your-email@gmail.com',
+            to: email,
+            subject: 'Verify Your Email - First Thought',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <div style="background: linear-gradient(135deg, #f0f9f4 0%, #e8f5e8 100%); padding: 20px; text-align: center;">
+                        <h1 style="color: #1A8917; margin: 0; font-family: 'Dancing Script', cursive;">First Thought</h1>
+                    </div>
+                    <div style=\"padding: 30px; background: #ffffff;\">
+                        <h2 style=\"color: #2c3e50; margin-bottom: 20px;\">Verify Your Email Address</h2>
+                        <p style=\"color: #6B6B6B; line-height: 1.6; margin-bottom: 25px;\">
+                            Thank you for signing up for First Thought! To complete your registration, please enter the verification code below:
+                        </p>
+                        <div style=\"background: #f8faf8; padding: 20px; text-align: center; border-radius: 8px; margin: 25px 0;\">
+                            <h1 style=\"color: #1A8917; font-size: 32px; letter-spacing: 8px; margin: 0; font-family: monospace;\">${otp}</h1>
+                        </div>
+                        <p style=\"color: #6B6B6B; font-size: 14px; margin-top: 25px;\">
+                            This code will expire in 10 minutes. If you didn't request this code, please ignore this email.
+                        </p>
+                        <hr style=\"border: none; border-top: 1px solid #e1e1e1; margin: 30px 0;\">
+                        <p style=\"color: #95a5a6; font-size: 12px; text-align: center;\">
+                            First Thought - A modern blogging platform
+                        </p>
+                    </div>
+                </div>
+            `,
+        } as const;
 
         await transporter.sendMail(mailOptions);
         return true;
