@@ -106,3 +106,5 @@ backend/uploads/*
 
 # Prisma migrations (optional - remove if you want to track them)
 backend/prisma/migrations/
+# Local Netlify folder
+.netlify

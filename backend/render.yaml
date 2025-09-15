@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: firstthought-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TOKEN_SECRET
+        value: your-super-secret-jwt-key-minimum-32-characters
+      - key: DATABASE_URL
+        value: postgresql://neondb_owner:npg_niW0Bc9bZIam@ep-dawn-recipe-a19lcwot-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+      - key: EMAIL_USER
+        value: firstthought.platform@gmail.com
+      - key: EMAIL_PASS
+        value: jwsa zjzq yyto mqta
+      - key: FRONTEND_SERVER_PROD
+        value: https://first-thought.netlify.app
+      - key: FRONTEND_URL
+        value: https://first-thought.netlify.app
