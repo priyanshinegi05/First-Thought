@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: firstthought-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npm run start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
+      - key: TOKEN_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: FRONTEND_SERVER_PROD
+        value: https://first-thought.netlify.app
+      - key: FRONTEND_URL
+        value: https://first-thought.netlify.app
+
