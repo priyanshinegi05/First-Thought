@@ -31,12 +31,20 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 
+// Allow main frontend origin and Netlify deploy previews
+const allowedOrigins = new Set([
+    "http://localhost:5173",
+    "http://localhost:4173",
+    process.env.FRONTEND_SERVER_PROD || "",
+]);
 const corsOptions = {
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:4173",
-        process.env.FRONTEND_SERVER_PROD || "",
-    ],
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.has(origin)) return callback(null, true);
+        // Allow any Netlify *.netlify.app (including unique deploy subdomains)
+        if (/^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.netlify\.app$/i.test(origin)) return callback(null, true);
+        return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
 };
 app.use(cors(corsOptions));
