@@ -50,8 +50,9 @@ export const sendOTPEmail = async (email: string, otp: string): Promise<boolean>
     try {
         // Prefer Resend HTTPS API if available to avoid SMTP restrictions/timeouts
         if (process.env.RESEND_API_KEY) {
+            const resendFrom = process.env.RESEND_FROM || process.env.EMAIL_USER || 'onboarding@resend.dev';
             const body = {
-                from: process.env.EMAIL_USER || 'no-reply@firstthought.app',
+                from: resendFrom,
                 to: email,
                 subject: 'Verify Your Email - First Thought',
                 html: `
